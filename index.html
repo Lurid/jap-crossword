@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+
+	<link rel="stylesheet" type="text/css" href="style/index.css" />
+	<link rel="stylesheet" type="text/css" href="style/index2.css" />
+	<link rel="stylesheet" type="text/css" href="style/settings.css" />
+	<link rel="stylesheet" type="text/css" href="style/test.css" />
+	<!--
+	<script type="text/javascript" src="script/old1.js"></script>
+	-->
+	<script type="text/javascript" src="./script/assistant.js"></script>
+	<script type="text/javascript" src="./script/page.js"></script>
+	<script type="text/javascript" src="./script/crosswords.js"></script>
+	<script type="text/javascript" src="./script/engine.js"></script>
+	<script type="text/javascript" src="./script/solver.js"></script>
+
+
+</head>
+
+<body>
+	<div id="tooltip" class="ttState">3 x 2</div>
+	<div id="colorpanel" class="cpState"></div>
+
+	<header>
+		<div>
+			<table id="HeaderMenu">
+				<tbody>
+					<tr>
+						<td><button onclick="TabPage(1)" id="tabButton1">Игра</button></td>
+						<td><button onclick="TabPage(2)" id="tabButton2">Кроссворды</button></td>
+						<td><button onclick="TabPage(3)" id="tabButton3">Создание</button></td>
+						<td><button onclick="TabPage(4)" id="tabButton4">Решатель</button></td>
+						<td><button onclick="TabPage(5)" id="tabButton5">Настройки</button></td>
+						<td><button onclick="TabPage(6)" id="tabButton6">Как играть</button></td>
+						<td><button onclick="TabPage(7)" id="tabButton7">Об сайте</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</header>
+
+
+	<div id="allPages">
+		<div id="tabPage1">
+			<div class="solverMenu1">
+				<select name="" id="select1_1"></select>
+				<button onclick="SelectCrossword()">Загрузить кроссворд</button>
+			</div>
+			<div id="main-element">
+				<div class="ColorPanelLeft"></div>
+				<div id="SolverContainer">
+					<table id="FieldParent" class="notColl">
+						<tbody id="FieldBody">
+							<tr>
+								<td id="fpart1-1td">
+									<div id="fpart1-1">
+									</div>
+								</td>
+								<td id="fpart1-2td">
+									<div id="fpart1-2">
+									</div>
+								</td>
+								<td>
+									<div id="fpart1-3">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td id="fpart2-1td">
+									<div id="fpart2-1">
+									</div>
+								</td>
+								<td>
+									<div id="fpart2-2" ondragstart="return false;">
+									</div>
+								</td>
+								<td>
+									<div id="fpart2-3" class="AxisDiv">
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<div id="fpart3-1">
+									</div>
+								</td>
+								<td>
+									<div id="fpart3-2" class="AxisDiv">
+									</div>
+								</td>
+								<td>
+									<div id="fpart3-3">
+									</div>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<div class="solverMenu1">
+					<button class="startSolverButton" onclick="StartSolver()">Запуск решателя</button>
+					<button class="startSolverButton" onclick="SolutionStep()">Сделать один шаг</button>
+					<button class="startSolverButton" onclick="StartSolutionCycle()">Сделать 10 шагов</button>
+				</div>
+				<div class="solverMenu2">
+					<input type="button" value="<">
+					<input type="range" name="" id="">
+					<input type="button" value=">">
+				</div>
+
+			</div>
+		</div>
+		<div id="tabPage2">tab2</div>
+		<div id="tabPage3">tab3</div>
+		<div id="tabPage4">tab4</div>
+		<div id="tabPage5">
+			<div class="SettingsPage">
+				<div class="half-side">
+					<table class="table-rows">
+						<tr>
+							<td colspan="2" class="SettingsPageHeader">Визуальный стиль</td>
+						</tr>
+
+						<tr>
+							<td>
+								<label for="high-performance">High performance</label>
+							</td>
+							<td>
+								<label class="custom-checkbox checkboxV2">
+									<input type="checkbox" checked="checked" id="high-performance">
+									<span class="checkmark"></span>
+								</label>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<label for="--text-color1">Text color</label>
+							</td>
+							<td>
+								<div>
+									<input oninput="dynamic_style.setProperty(this.id, this.value);"
+										onchange="changeColor(this.id, this.value);" type="color" id="--text-color1">
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<label for="--main-color1">Borders color</label>
+							</td>
+							<td>
+								<div>
+									<input oninput="dynamic_style.setProperty(this.id, this.value);"
+										onchange="changeColor(this.id, this.value);" type="color" id="--main-color1">
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<label for="--main-color2">Active cell color</label>
+							</td>
+							<td>
+								<div>
+									<input oninput="dynamic_style.setProperty(this.id, this.value);"
+										onchange="changeColor(this.id, this.value);" type="color" id="--main-color2">
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<label for="--main-color3">Supporting color</label>
+							</td>
+							<td>
+								<div>
+									<input oninput="dynamic_style.setProperty(this.id, this.value);"
+										onchange="changeColor(this.id, this.value);" type="color" id="--main-color3">
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<label for="--bg-color">Background color</label>
+							</td>
+							<td>
+								<div>
+									<input oninput="dynamic_style.setProperty(this.id, this.value);"
+										onchange="changeColor(this.id, this.value);" type="color" id="--bg-color"
+										value="#FF0000">
+								</div>
+							</td>
+						</tr>
+
+					</table>
+				</div>
+
+				<div class="half-side">
+					<table class="table-rows">
+
+						<tr>
+							<td colspan="2" class="SettingsPageHeader">Настройки</td>
+						</tr>
+
+						<tr>
+							<td>
+								<label for="cbShowName">Показывать названия</label>
+							</td>
+							<td><label class="custom-checkbox checkboxV2"><input type="checkbox" checked="checked"
+										id="cbToolTipShow"><span class="checkmark"></span></label></td>
+						</tr>
+						<tr>
+							<td>
+								<label for="cbToolTipShow">Счетчик клеток</label>
+							</td>
+							<td><label class="custom-checkbox checkboxV2"><input type="checkbox" checked="checked"
+										id="cbToolTipShow"><span class="checkmark"></span></label></td>
+						</tr>
+						<tr>
+							<td>
+								<label for="cbAxisBacklight">Подсветка полей</label>
+							</td>
+							<td><label class="custom-checkbox checkboxV2"><input type="checkbox" checked="checked"
+										id="cbAxisBacklight"><span class="checkmark"></span></label></td>
+						</tr>
+						<tr>
+							<td>
+								<label for="cbAxisBacklight">Закрепить панели с числами</label>
+							</td>
+							<td><label class="custom-checkbox checkboxV2"><input type="checkbox" checked="checked"
+										id="cbAxisBacklight"><span class="checkmark"></span></label></td>
+						</tr>
+						<tr>
+							<td>
+								<label for="cbAxisSticky">Закрепить панель внизу кроссворда</label>
+							</td>
+							<td><label class="custom-checkbox checkboxV2"><input type="checkbox" checked="checked"
+										id="cbAxisSticky"><span class="checkmark"></span></label></td>
+						</tr>
+						<tr>
+							<td>
+								<label for="cbBottomPanelSticky">Автоматически проставлять крестики после решения строки
+									или столбца</label>
+							</td>
+							<td><label class="custom-checkbox checkboxV2"><input type="checkbox" checked="checked"
+										id="cbBottomPanelSticky"><span class="checkmark"></span></label></td>
+						</tr>
+						<tr>
+							<td>
+								<label for="cbAutoCrossCompleting">Миниатюра</label>
+							</td>
+							<td><label class="custom-checkbox checkboxV2"><input type="checkbox" checked="checked"
+										id="cbAutoCrossCompleting"><span class="checkmark"></span></label></td>
+						</tr>
+						<tr>
+							<td>
+								<label for="cbMiniature">Автоматически зачеркивать числа</label>
+							</td>
+							<td><label class="custom-checkbox checkboxV2"><input type="checkbox" checked="checked"
+										id="cbMiniature"><span class="checkmark"></span></label></td>
+						</tr>
+						<tr>
+							<td>
+								<label for="cbAutoMarkNumbers">Название</label>
+							</td>
+							<td><label class="custom-checkbox checkboxV2"><input type="checkbox" checked="checked"
+										id="cbAutoMarkNumbers"><span class="checkmark"></span></label></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div id="tabPage6">tab6</div>
+		<div id="tabPage7">tab7</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.main-element {
+	display: flex;
+	flex-direction: column;
+}
+.main-element>div {
+ display: flex;
+ flex-direction: row;
+}
+
+table {
+	border-collapse: collapse;
+}
+#work_body tr {
+}
+
+#work_body td:nth-child(5n+1) {
+   border-right-width: 2px; 
+}
+#work_body tr:nth-child(5n) td {
+   border-bottom-width: 2px;
+}
+#work_body td {
+	border: 1px solid #444444;
+	height: 17px;
+}
+#work_body td.row-name {
+	width: 192px;
+   padding: 0px 4px;
+}
+#work_body td.cell {
+	width: 18px;
+}
+#work_body td.empty {
+	background-color: white;
+}
+#work_body td.cross {
+	background-image: url("cross.png");
+	background-size: cover;
+}
+#work_body td.black {
+	background-color: black;
+}
+#work_body td.end {
+	width: -webkit-fill-available !important;
+	border: 0;
+}

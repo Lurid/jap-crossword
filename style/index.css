@@ -1,0 +1,102 @@
+* {
+	padding: 0;
+	margin: 0;
+	font-family: Arial;
+
+	--text-color1: black;
+	--bg-color: orange;
+	--main-color2: red;
+	--main-color3: lime;
+}
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-wrap: wrap;
+	height: 2000px;
+	background-color: #e8e4dc;
+}
+button {
+	color: #333;
+	background-color: #fff;
+	padding: 6px 12px;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	user-select: none;
+	background-image: none;
+	border: 1px solid #767676;
+	border-radius: 2px;
+	cursor: pointer;
+}
+button:hover {
+	background-color: #F7F5F0;
+}
+
+#main-element {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+table {
+	border-spacing: 0px;
+}
+
+#allPages {
+	margin: 9px 0 9px;
+}
+header {
+	width: 80%;
+}
+
+header {
+	text-align: center;
+	z-index: 255;
+	position: sticky;
+	top: 0;
+	background-color: var(--main-color3);
+	border-radius: 0 0 14px 14px;
+}
+
+header div {
+  margin: 0 -4px 0;
+}
+header table {
+	border-spacing: 8px 0;
+  margin-bottom: 4px;
+	width: 100%;
+	table-layout: fixed;
+}
+header td {
+	height: 1px;
+}
+header td button {
+	display: block;
+	border: 4px var(--bg-color);
+	border-style: none none solid;
+
+	width: 100%;
+	height: 100%;
+	font-family: inherit;
+	font-weight: inherit;
+	font-size: calc(1.0vh + 1.0vw);
+	border-radius: 0 0 10px 10px;
+	background-color: #7d725a;
+	color: var(--text-color1);
+	outline: none;
+	cursor: pointer;
+	padding: 0.5vh;
+	color: white;
+}
+
+header td button:hover {
+	border-color: var(--main-color2);
+}
+
+#tabPage1 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}

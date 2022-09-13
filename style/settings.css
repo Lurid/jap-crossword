@@ -1,0 +1,190 @@
+.custom-checkbox {
+	display: block;
+	height: -webkit-fill-available;
+	width: -webkit-fill-available;
+	position: relative;
+	cursor: pointer;
+	user-select: none;
+	font-size: 22px;
+}
+.checkboxV2 {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+.custom-checkbox input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+.checkmark {
+	position: absolute;
+	height: 24px;
+	aspect-ratio: 2;
+	margin: 2px 2px;
+	background-color: #eee;
+	border-radius: 6px;
+	border: 1px solid dimgray;
+	display: flex;
+	align-items: stretch;
+}
+
+/* On mouse-over, add a grey background color */
+.custom-checkbox:hover input ~ .checkmark {
+	background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.custom-checkbox input:checked ~ .checkmark {
+	/*background-color: #2196F3;*/
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: block;
+	transition: all 0.3s ease;
+}
+
+/* Show the checkmark when checked */
+
+.custom-checkbox input:checked ~ .checkmark:after {
+	left: calc(50% - 2px);
+	background-color: lime;
+}
+
+/* Style the checkmark/indicator */
+.custom-checkbox .checkmark:after {
+	border-radius: 4px;
+	background-color: #2196F3;
+	height: -webkit-fill-available;
+	width: calc(50% - 4px);
+	background-color: red;
+	border: 1px solid dimgray;
+	aspect-ratio: 1;
+	margin: 2px;
+	left: 0;
+}
+
+
+
+.SettingsPageHeader {
+    text-align: center;
+    font-size: 48px;
+  }
+  
+  .SettingsCheckbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .SettingsPage input[type=color] {
+    background-color: transparent;
+    border: 0;  
+  }
+  .SettingsCheckbox input[type=checkbox] {
+    position: absolute;
+  }
+  
+  .SettingsPage input[type=number] {
+    width: -webkit-fill-available;
+  }
+  .SettingsPage input[type=number]:focus-visible {
+    outline: none;
+  }
+  
+  .preset-color-table {
+    display: grid;
+    grid-gap: 4px;
+    padding: 4px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .preset-color-item1 {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      content-visibility: auto;
+  }
+  .preset-color-item2 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+  .preset-color-item2 div {
+    height: -webkit-fill-available;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  
+
+.SettingsPage {
+	display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.SettingsPage input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.SettingsPage .half-side {
+  width: 45%;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+.table-rows {
+  width: 100%;
+	border-spacing: 0;
+	table-layout: fixed;
+}
+.table-rows tr:hover>td:first-child {
+  text-decoration: underline;
+}
+.table-rows td {
+	height: 32px;
+	border-color: var(--main-color1);
+	border-bottom: 2px solid;
+}
+
+.table-rows div {
+	width: 100%;
+	height: 100%;	
+}
+
+
+.table-rows label {
+  display: block;
+}
+
+.table-rows label[class=""], .SettingsPage input[type="color"] {
+	width: 100%;
+	height: 100%;
+  cursor: pointer;
+}
+
+/* было раньше во вкладке game */
+input#table_size {
+  padding-left: 7px;
+  width: -webkit-fill-available;
+  white-space: nowrap;
+  border: 2px solid var(--main-color1);
+}
+input#table_size:hover, input#table_size:focus {
+  /*загуглить убирание стрелочек у input number*/
+}
+input#table_size:focus-visible {
+  outline: none;
+}
+
+.table-rows td:first-child>label {
+  font-size: 14pt;
+  padding: 3px 0;
+}
