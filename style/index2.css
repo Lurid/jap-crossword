@@ -236,7 +236,7 @@
 	/*background-color: transparent;*/
 }
 .s1>p {
-	background-image: url("../images/cross.png");
+	background-image: url(images/cross.png);
    background-size: 16px;
    background-origin: border-box;
 }
