@@ -445,6 +445,9 @@ function StartSolver() {
 
 
 	//сортировка по "жирности" "строки", и циклы поиска решений 
+
+	
+	StartSolverShow(true);
 }
 
 function StartSolutionCycle() {

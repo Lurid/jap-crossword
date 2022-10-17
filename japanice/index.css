@@ -45,6 +45,7 @@ table {
 #work_body td.cross {
 	background-image: url("cross.png");
 	background-size: cover;
+	background-color: gray;
 }
 #work_body td.black {
 	background-color: black;

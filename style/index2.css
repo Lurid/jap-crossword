@@ -282,6 +282,7 @@
 	background-image: url(../images/cross.png);
 	background-size: var(--cell-size);
 	background-origin: border-box;
+	background-color: gray;
 }
 
 .s2>p {
@@ -344,7 +345,7 @@
 	gap: 0 4px;
 }
 
-#solveState {
+.solverMenu3>* {
 	font-size: 20pt;
 	text-align: center;
 }

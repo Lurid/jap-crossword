@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	HorizontalAxis = document.getElementById("fpart3-2");
 
 	solveStateElement = document.getElementById("solveState");
+	solveR_StateElement = document.getElementById("solveR_State");
 
 	DrawField(allMassives[0]);
 });
@@ -384,6 +385,11 @@ function DrawField(massive) {
 
 	vAxisTemple += "</tbody></table>";
 	VerticalAxis.innerHTML = vAxisTemple;
+	StartSolverShow(false);
+}
+
+function StartSolverShow(state) {
+	solveR_State.innerText = state ? "Решатель запущен" : "Решатель НЕ запущен!";
 }
 
 function fieldDrawEvent(coord1, coord2, final = false, byProgramm = false) {
