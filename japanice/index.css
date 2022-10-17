@@ -50,6 +50,6 @@ table {
 	background-color: black;
 }
 #work_body td.end {
-	width: -webkit-fill-available !important;
+	width: 100% !important;
 	border: 0;
 }

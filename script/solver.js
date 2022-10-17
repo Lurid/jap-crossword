@@ -487,6 +487,7 @@ function SolutionStep() {
 
 		if (wtfMassive.every(x => x.solved == true) == true) {
 			console.log("All Solved !!! drawCount["+drawCount+"]");
+			solveStateElement.innerText = "Кроссворд решён!";
 			allSolved == true;
 		}
 	}

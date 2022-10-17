@@ -11,6 +11,17 @@ var drawModeEnable = false, drawModeState,
 var VerticalAxis, HorizontalAxis, ColBacklights, RowBacklights;
 
 
+var mobileDevice = 'ontouchstart' in document.documentElement;
+
+var solveStateElement;
+/*
+mobileDevice = detectMob();
+function detectMob() {
+	const toMatch = [/Android/i, /iPhone/i, /iPad/i, /iPod/i, /Windows Phone/i];
+
+	return toMatch.some((toMatchItem) => { return navigator.userAgent.match(toMatchItem); });
+}
+*/
 
 
 
@@ -19,18 +30,9 @@ var VerticalAxis, HorizontalAxis, ColBacklights, RowBacklights;
 
 
 document.addEventListener("DOMContentLoaded", function () {
+
 	//SolverParent = document.getElementById("SolverContainer");
 	//SolverField = new MyLine(SolverParent);
-
-
-
-
-
-
-
-
-
-
 
 	FullField = document.getElementById("FieldBody");
 	SizePlace = document.getElementById("fpart1-1");
@@ -42,53 +44,35 @@ document.addEventListener("DOMContentLoaded", function () {
 		e.preventDefault();
 	}, false);
 
-	FullField.addEventListener('mousemove', (event) => {
-		if (drawModeEnable == true && (EngineSettings.ToolTipShow == true)) {
-			LittleTooltip.style.top = event.clientY + "px";
-			LittleTooltip.style.left = (event.clientX + 20) + "px";
-		}
-	});
-	fField.addEventListener("mousedown", (event) => {
-		//console.log("mousedown (" + event.target.value.coord + ")");
-		if (event.target.tagName == "TD") {
-			drawModeEnable = true;
-			//console.log(event.target.value.realState);
-			if (event.button == 0) {
-				drawModeState = (event.target.value.realState == 0) ? 2 : 0;
-			} else if (event.button == 2) {
-				drawModeState = (event.target.value.realState == 1) ? 0 : 1;
-			}
-			if (drawModeState != 1 && (EngineSettings.ToolTipShow == true))
-				ToolTipState(drawModeState);
-			//console.log(drawModeState);
-			drawMass = [];
-			drawStart = event.target.value.coord;
-			dragMiddle = event.target.value.coord;
-			fieldDrawEvent(drawStart, dragMiddle);
-		}
-	});
-	fField.addEventListener("mouseover", (event) => {
-		if (event.target.tagName == "TD") {
-			if (EngineSettings.AxisBacklight == true) {
-				AxisBacklight(event.target.value.coord);
-			}
-			if (drawModeEnable == true) {
-				//console.log("mouseover (" + event.target.value.coord+")");
-				fieldDrawEvent(drawStart, event.target.value.coord);
-				dragMiddle = event.target.value.coord;
-				//event.target.classList.add("hoverable");
-			}
-		}
-	});
-	fField.addEventListener("mouseup", (event) => {
-		//console.log("mouseup (" + event.target.value.coord + ")");
-		if (event.target.tagName == "TD" && fField.contains(event.target)) {
-			drawModeEnable = false;
-			dragEnd = event.target.value.coord;
-			fieldDrawEvent(drawStart, dragMiddle, true);
-		}
-		ToolTipEnable(false);
-	});
+
+	if (mobileDevice) {
+		FullField.style
+
+		/*font-size: 4pt;
+    	--cell-size: 8px;*/
+		LittleTooltip.style.alignItems = "flex-end";
+		LittleTooltipText.style.bottom = "1.5cm";
+		//LittleTooltipOffset = [-15, -45]
+		fField.addEventListener("touchstart", FieldEventDown);
+		FullField.addEventListener('touchmove', FieldTouchMove);
+		//fField.addEventListener("mouseover", FieldEventOver);
+		fField.addEventListener("touchend", FieldTouchUp);
+	}else {
+		LittleTooltip.style.justifyContent = LittleTooltip.style.alignItems = "flex-start";
+		LittleTooltipText.style.top = "0";
+		LittleTooltipText.style.left = "0.5cm";
+		//LittleTooltipOffset = [20, 0];
+		fField.addEventListener("mousedown", FieldEventDown);
+		FullField.addEventListener('mousemove', FieldMouseMove);
+		fField.addEventListener("mouseover", FieldMouseOver);
+		fField.addEventListener("mouseup", FieldMouseUp);
+	}
+
+
+
+
+
+	
 
 	FullField.addEventListener("mouseup", (event) => {
 		if (drawModeEnable == true) {
@@ -109,9 +93,139 @@ document.addEventListener("DOMContentLoaded", function () {
 	VerticalAxis = document.getElementById("fpart2-3");
 	HorizontalAxis = document.getElementById("fpart3-2");
 
+	solveStateElement = document.getElementById("solveState");
 
-	DrawField(allMassives[1]);
+	DrawField(allMassives[0]);
 });
+
+function FieldEventDown(event) {
+	if (event.target.tagName == "TD") {
+		if (mobileDevice) {
+			event.preventDefault();
+		}
+		drawModeEnable = true;
+		if (mobileDevice) {
+			drawModeState = (event.target.value.realState == 0) ? 2 : 0;
+			//добавить меню для выбора "карандаша" для мобильных устройств
+		} else {
+			if (event.button == 0)
+				drawModeState = (event.target.value.realState == 0) ? 2 : 0;
+			else if (event.button == 2)
+				drawModeState = (event.target.value.realState == 1) ? 0 : 1;
+		}
+		if (drawModeState != 1 && (EngineSettings.ToolTipShow == true))
+			ToolTipState(drawModeState);
+		drawMass = [];
+		drawStart = event.target.value.coord;
+		dragMiddle = event.target.value.coord;
+		fieldDrawEvent(drawStart, dragMiddle);
+	}
+}
+
+var LittleTooltipOffset;
+function FieldMouseMove(event) {
+	if (drawModeEnable == true && (EngineSettings.ToolTipShow == true)) {
+		LittleTooltip.style.left = (event.clientX) + "px";
+		LittleTooltip.style.top = (event.clientY) + "px";
+	}
+}
+
+function MouseMoveTest(event) {
+	console.log(event);
+	console.log("event");
+}
+
+var cellHover;
+function FieldTouchMove(event) {
+	//console.log(event);
+	//console.log(event.target.value.coord);
+	//console.log(event.targetTouches[0].target.value.coord);
+	if (drawModeEnable == true && (EngineSettings.ToolTipShow == true)) {
+		let TarGet = document.elementFromPoint(event.touches[0].clientX, event.touches[0].clientY);
+		if (TarGet == null)
+			console.log("TarGet == null");
+		if (TarGet != null && fField.contains(TarGet) && TarGet != cellHover) {
+			cellHover = TarGet;
+			//console.log(TarGet);
+			FieldTouchOver();
+		}
+		LittleTooltip.style.left = (event.touches[0].clientX) + "px";
+		LittleTooltip.style.top = (event.touches[0].clientY) + "px";
+	}
+}
+
+function FieldTouchOver() {
+	if (cellHover.tagName == "TD") {
+
+		//console.log("mouseover (" + cellHover.value.coord+")");
+		if (EngineSettings.AxisBacklight == true) {
+			AxisBacklight(cellHover.value.coord);
+		}
+		if (drawModeEnable == true) {
+			//console.log("mouseover (" + cellHover.value.coord+")");
+			fieldDrawEvent(drawStart, cellHover.value.coord);
+			dragMiddle = cellHover.value.coord;
+			//cellHover.classList.add("hoverable");
+		}
+	}
+}
+
+function FieldMouseOver(event) {
+	if (event.target.tagName == "TD") {
+
+		//console.log("mouseover (" + event.target.value.coord+")");
+		if (EngineSettings.AxisBacklight == true) {
+			AxisBacklight(event.target.value.coord);
+		}
+		if (drawModeEnable == true) {
+			//console.log("mouseover (" + event.target.value.coord+")");
+			fieldDrawEvent(drawStart, event.target.value.coord);
+			dragMiddle = event.target.value.coord;
+			//event.target.classList.add("hoverable");
+		}
+	}
+}
+
+function FieldMouseUp(event) {
+	//console.log("mouseup (" + event.target.value.coord + ")");
+	if (event.target.tagName == "TD" && fField.contains(event.target)) {
+		drawModeEnable = false;
+		dragEnd = event.target.value.coord;
+		fieldDrawEvent(drawStart, dragMiddle, true);
+	}
+	ToolTipEnable(false);
+}
+function FieldTouchUp() {
+	//console.log("mouseup (" + cellHover.value.coord + ")");
+	if (cellHover.tagName == "TD" && fField.contains(cellHover)) {
+		drawModeEnable = false;
+		dragEnd = cellHover.value.coord;
+		fieldDrawEvent(drawStart, dragMiddle, true);
+	}
+	ToolTipEnable(false);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function DrawField(massive) {
 	hStrings = massive.top;
@@ -273,7 +387,6 @@ function DrawField(massive) {
 }
 
 function fieldDrawEvent(coord1, coord2, final = false, byProgramm = false) {
-	//console.log(state);
 	let
 		minX = Math.min(coord1[0], coord2[0]),
 		maxX = Math.max(coord1[0], coord2[0]),
@@ -290,7 +403,7 @@ function fieldDrawEvent(coord1, coord2, final = false, byProgramm = false) {
 		if (byProgramm == false) {
 			if (textTooltip.length > 0) {
 				ToolTipEnable(true);
-				LittleTooltip.innerText = textTooltip.join(" x ");
+				LittleTooltipText.innerText = textTooltip.join(" x ");
 			} else {
 				ToolTipEnable(false);
 			}
